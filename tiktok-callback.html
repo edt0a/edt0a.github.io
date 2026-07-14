@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>become. Studio - TikTok-Verbindung</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0B0B14;color:#EDEAF5;font-family:-apple-system,Segoe UI,Roboto,sans-serif;
+       min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .card{max-width:520px;width:100%;background:#17151F;border:1px solid #2A2738;
+        border-radius:18px;padding:36px 32px;text-align:center}
+  h1{font-size:22px;margin-bottom:4px}
+  .sub{color:#9A93B0;font-size:15px;line-height:1.5}
+  .code{background:#0B0B14;border:1px solid #3A3550;border-radius:12px;padding:16px;
+        font-family:monospace;font-size:14px;word-break:break-all;color:#8B9BFF;margin:16px 0}
+  button{background:#8B5CF6;color:#fff;border:none;border-radius:10px;padding:14px 22px;
+         font-size:16px;font-weight:600;cursor:pointer;width:100%}
+  button:hover{background:#7C4DE0}
+  .err{color:#E07A8B;font-weight:600}
+  .ok{color:#5BD69A;font-weight:600;margin-bottom:6px}
+  .hint{color:#7A7490;font-size:13px;margin-top:18px;line-height:1.5}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>become. Studio</h1>
+    <div class="sub">TikTok-Verbindung</div>
+    <div id="content"></div>
+  </div>
+<script>
+  var p=new URLSearchParams(window.location.search);
+  var code=p.get('code'), err=p.get('error_description')||p.get('error');
+  var el=document.getElementById('content');
+  if(code){
+    el.innerHTML='<div class="ok">Fast geschafft!</div>'
+      +'<p class="sub">Kopiere diesen Code und fuege ihn in <b>become. Studio</b> ein:</p>'
+      +'<div class="code" id="c">'+code+'</div>'
+      +'<button onclick="cp()">Code kopieren</button>'
+      +'<div class="hint">Danach zurueck zur App und auf Verbinden abschliessen klicken.</div>';
+  }else{
+    el.innerHTML='<div class="err">Kein Code erhalten.</div>'
+      +'<p class="hint">'+(err?('Meldung: '+err):'Bitte den Login in der App erneut starten.')+'</p>';
+  }
+  function cp(){var t=document.getElementById('c').innerText;
+    navigator.clipboard.writeText(t).then(function(){
+      var b=document.querySelector('button');b.innerText='Kopiert!';
+      setTimeout(function(){b.innerText='Code kopieren';},2000);});}
+</script>
+</body>
+</html>
